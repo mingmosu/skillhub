@@ -2,6 +2,7 @@ package com.iflytek.skillhub.service;
 
 import com.iflytek.skillhub.auth.bootstrap.PassiveSessionAuthenticator;
 import com.iflytek.skillhub.auth.direct.DirectAuthProvider;
+import com.iflytek.skillhub.auth.inspur.InspurPassportProperties;
 import com.iflytek.skillhub.auth.oauth.OAuthLoginRedirectSupport;
 import com.iflytek.skillhub.config.AuthSessionBootstrapProperties;
 import com.iflytek.skillhub.config.DirectAuthProperties;
@@ -25,17 +26,20 @@ public class AuthMethodCatalog {
     private final OAuth2ClientProperties oAuth2ClientProperties;
     private final DirectAuthProperties directAuthProperties;
     private final AuthSessionBootstrapProperties sessionBootstrapProperties;
+    private final InspurPassportProperties inspurPassportProperties;
     private final List<DirectAuthProvider> directAuthProviders;
     private final List<PassiveSessionAuthenticator> passiveSessionAuthenticators;
 
     public AuthMethodCatalog(OAuth2ClientProperties oAuth2ClientProperties,
                              DirectAuthProperties directAuthProperties,
                              AuthSessionBootstrapProperties sessionBootstrapProperties,
+                             InspurPassportProperties inspurPassportProperties,
                              List<DirectAuthProvider> directAuthProviders,
                              List<PassiveSessionAuthenticator> passiveSessionAuthenticators) {
         this.oAuth2ClientProperties = oAuth2ClientProperties;
         this.directAuthProperties = directAuthProperties;
         this.sessionBootstrapProperties = sessionBootstrapProperties;
+        this.inspurPassportProperties = inspurPassportProperties;
         this.directAuthProviders = directAuthProviders;
         this.passiveSessionAuthenticators = passiveSessionAuthenticators;
     }
@@ -100,6 +104,16 @@ public class AuthMethodCatalog {
                     provider.displayName(),
                     "/api/v1/auth/session/bootstrap"
                 )));
+        }
+
+        if (inspurPassportProperties.isEnabled()) {
+            methods.add(new AuthMethodResponse(
+                "inspur-passport",
+                "OAUTH_REDIRECT",
+                "inspur-passport",
+                "Inspur Passport",
+                "/auth/inspur-login"
+            ));
         }
 
         return methods;

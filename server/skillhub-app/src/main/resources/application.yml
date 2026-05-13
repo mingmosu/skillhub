@@ -92,7 +92,7 @@ spring:
           starttls:
             enable: ${SPRING_MAIL_SMTP_STARTTLS_ENABLE:false}
 
-skillhub:
+astron:
   auth:
     mock:
       enabled: ${SKILLHUB_AUTH_MOCK_ENABLED:false}
@@ -104,6 +104,13 @@ skillhub:
       code-expiry: ${SKILLHUB_AUTH_PASSWORD_RESET_CODE_EXPIRY:PT10M}
       email-from-address: ${SKILLHUB_AUTH_PASSWORD_RESET_FROM_ADDRESS:noreply@skillhub.local}
       email-from-name: ${SKILLHUB_AUTH_PASSWORD_RESET_FROM_NAME:SkillHub}
+    inspur-passport:
+      enabled: ${INSPUR_PASSPORT_ENABLED:true}
+      auth-server: ${INSPUR_PASSPORT_AUTH_SERVER:https://id-dev.inspuronline.com}
+      client-id: ${INSPUR_PASSPORT_CLIENT_ID:4f3fdfac-e4bf-4895-aa47-7fd1f7d2da6b}
+      client-secret: ${INSPUR_PASSPORT_CLIENT_SECRET:e196508c-a88e-4f94-8b25-b017d5787506}
+      redirect-uri: ${INSPUR_PASSPORT_REDIRECT_URI:http://localhost:8080/ssologin}
+      state: ssotest
   public:
     base-url: ${SKILLHUB_PUBLIC_BASE_URL:}
   access-policy:
