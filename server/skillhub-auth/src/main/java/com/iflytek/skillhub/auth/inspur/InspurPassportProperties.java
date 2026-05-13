@@ -2,7 +2,7 @@ package com.iflytek.skillhub.auth.inspur;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "astron.auth.inspur-passport")
+@ConfigurationProperties(prefix = "skillhub.auth.inspur-passport")
 public class InspurPassportProperties {
 
     private boolean enabled = false;

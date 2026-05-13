@@ -92,7 +92,7 @@ spring:
           starttls:
             enable: ${SPRING_MAIL_SMTP_STARTTLS_ENABLE:false}
 
-astron:
+skillhub:
   auth:
     mock:
       enabled: ${SKILLHUB_AUTH_MOCK_ENABLED:false}
