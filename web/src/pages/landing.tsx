@@ -89,120 +89,132 @@ export function LandingPage() {
 
   return (
     <>
-      {/* Hero Section */}
-      <main ref={heroView.ref} className={`relative z-10 flex flex-col items-center pt-16 pb-20 px-4 md:pt-24 scroll-fade-up${heroView.inView ? ' in-view' : ''}`}>
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-brand-gradient mb-4">
-          SkillHub
-        </h1>
-        <h2
-          className="text-xl md:text-2xl font-semibold tracking-tight text-center mb-3"
-          style={{ color: 'hsl(var(--foreground))' }}
-        >
-          {t('landing.hero.title')}
-        </h2>
-        <p
-          className="text-base md:text-lg text-center max-w-2xl mb-10 leading-relaxed"
-          style={{ color: 'hsl(var(--text-secondary))' }}
-        >
-          {t('landing.hero.subtitle')}
-        </p>
-
-        {/* Search box */}
-        <div className="w-full max-w-2xl mb-8">
-          <div
-            className="flex items-center bg-white rounded-xl border shadow-sm px-5 py-3.5"
-            style={{ borderColor: 'hsl(var(--border))' }}
+      {/* Hero Section & Quick Start - Side by Side Layout */}
+      <div className="relative z-10 flex flex-col lg:flex-row items-stretch justify-center gap-8 lg:gap-16 pt-16 pb-20 px-4 md:pt-24 max-w-7xl mx-auto">
+        {/* Hero Content */}
+        <main ref={heroView.ref} className={`flex-1 flex flex-col items-center lg:items-start justify-center text-center lg:text-left scroll-fade-up${heroView.inView ? ' in-view' : ''}`}>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-brand-gradient mb-4">
+            SkillHub
+          </h1>
+          <h2
+            className="text-xl md:text-2xl font-semibold tracking-tight mb-3"
+            style={{ color: 'hsl(var(--foreground))' }}
           >
-            <SearchIcon className="w-5 h-5 flex-shrink-0 mr-3" style={{ color: 'hsl(var(--text-placeholder))' }} strokeWidth={1.5} />
-            <input
-              type="text"
-              placeholder={t('landing.hero.searchPlaceholder')}
-              className="hero-input flex-1 bg-transparent outline-none text-base"
-              style={{ color: 'hsl(var(--foreground))' }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  handleSearch((e.target as HTMLInputElement).value)
-                }
+            {t('landing.hero.title')}
+          </h2>
+          <p
+            className="text-base md:text-lg max-w-2xl mb-10 leading-relaxed"
+            style={{ color: 'hsl(var(--text-secondary))' }}
+          >
+            {t('landing.hero.subtitle')}
+          </p>
+
+          {/* Search box */}
+          <div className="w-full max-w-2xl mb-8">
+            <div
+              className="flex items-center bg-white rounded-xl border shadow-sm px-5 py-3.5"
+              style={{ borderColor: 'hsl(var(--border))' }}
+            >
+              <SearchIcon className="w-5 h-5 flex-shrink-0 mr-3" style={{ color: 'hsl(var(--text-placeholder))' }} strokeWidth={1.5} />
+              <input
+                type="text"
+                placeholder={t('landing.hero.searchPlaceholder')}
+                className="hero-input flex-1 bg-transparent outline-none text-base"
+                style={{ color: 'hsl(var(--foreground))' }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSearch((e.target as HTMLInputElement).value)
+                  }
+                }}
+              />
+            </div>
+          </div>
+
+          {/* CTA buttons */}
+          <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-14">
+            <Link
+              to="/search"
+              search={{ q: '', sort: 'relevance', page: 0, starredOnly: false }}
+              className="px-8 py-3.5 rounded-xl text-base font-medium text-white bg-brand-gradient shadow-sm hover:opacity-95 transition-opacity"
+            >
+              {t('landing.hero.exploreSkills')}
+            </Link>
+            <Link
+              to="/dashboard/publish"
+              className="px-8 py-3.5 rounded-xl text-base font-medium border transition-colors"
+              style={{
+                background: 'hsl(var(--secondary))',
+                borderColor: 'hsl(var(--muted-foreground))',
+                color: 'hsl(var(--muted-foreground))',
               }}
-            />
+            >
+              {t('landing.hero.publishSkill', { defaultValue: '开始构建' })}
+            </Link>
+          </div>
+
+          {/* Stats */}
+          {/*<div ref={statsView.ref} className={`flex flex-row justify-center gap-16 md:gap-24 scroll-fade-up${statsView.inView ? ' in-view' : ''}`} style={{ transitionDelay: '0.15s' }}>*/}
+          {/*  {stats.map((stat) => (*/}
+          {/*    <div key={stat.label} className="flex flex-col items-center">*/}
+          {/*      <span className="text-3xl md:text-4xl font-bold tracking-tight text-brand-gradient mb-1">*/}
+          {/*        {stat.value}*/}
+          {/*      </span>*/}
+          {/*      <span className="text-sm font-normal" style={{ color: 'hsl(var(--foreground))' }}>*/}
+          {/*        {stat.label}*/}
+          {/*      </span>*/}
+          {/*    </div>*/}
+          {/*  ))}*/}
+          {/*</div>*/}
+
+        </main>
+
+        {/* Quick Start */}
+        <div
+          ref={quickStartView.ref}
+          className={`flex-1 flex flex-col justify-center scroll-fade-up${quickStartView.inView ? ' in-view' : ''}`}
+        >
+          <div
+            className="rounded-[28px] border bg-white p-4 shadow-[0_24px_60px_-28px_rgba(15,23,42,0.25)]"
+            style={{ borderColor: 'hsl(var(--border-card))' }}
+          >
+            <LandingQuickStartSection />
           </div>
         </div>
-
-        {/* CTA buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-14">
-          <Link
-            to="/search"
-            search={{ q: '', sort: 'relevance', page: 0, starredOnly: false }}
-            className="px-8 py-3.5 rounded-xl text-base font-medium text-white bg-brand-gradient shadow-sm hover:opacity-95 transition-opacity"
-          >
-            {t('landing.hero.exploreSkills')}
-          </Link>
-          <Link
-            to="/dashboard/publish"
-            className="px-8 py-3.5 rounded-xl text-base font-medium border transition-colors"
-            style={{
-              background: 'hsl(var(--secondary))',
-              borderColor: 'hsl(var(--muted-foreground))',
-              color: 'hsl(var(--muted-foreground))',
-            }}
-          >
-            {t('landing.hero.publishSkill', { defaultValue: '开始构建' })}
-          </Link>
-        </div>
-
-        {/* Stats */}
-        <div ref={statsView.ref} className={`flex flex-row justify-center gap-16 md:gap-24 scroll-fade-up${statsView.inView ? ' in-view' : ''}`} style={{ transitionDelay: '0.15s' }}>
-          {stats.map((stat) => (
-            <div key={stat.label} className="flex flex-col items-center">
-              <span className="text-3xl md:text-4xl font-bold tracking-tight text-brand-gradient mb-1">
-                {stat.value}
-              </span>
-              <span className="text-sm font-normal" style={{ color: 'hsl(var(--foreground))' }}>
-                {stat.label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </main>
+      </div>
 
       {/* Features Section */}
-      <section ref={featuresView.ref} className={`relative z-10 w-full py-20 md:py-24 px-6 scroll-fade-up${featuresView.inView ? ' in-view' : ''}`} style={{ background: 'var(--bg-page, hsl(var(--background)))' }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3" style={{ color: 'hsl(var(--foreground))' }}>
-              {t('landing.whySkillHub.title', { defaultValue: '为什么选择 SkillHub' })}
-            </h2>
-            <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: 'hsl(var(--text-secondary))' }}>
-              {t('landing.whySkillHub.subtitle', { defaultValue: '专为企业打造的私有化 Agent 技能管理平台' })}
-            </p>
-          </div>
+      {/*<section ref={featuresView.ref} className={`relative z-10 w-full py-20 md:py-24 px-6 scroll-fade-up${featuresView.inView ? ' in-view' : ''}`} style={{ background: 'var(--bg-page, hsl(var(--background)))' }}>*/}
+      {/*  <div className="max-w-6xl mx-auto">*/}
+      {/*    <div className="text-center mb-14">*/}
+      {/*      <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3" style={{ color: 'hsl(var(--foreground))' }}>*/}
+      {/*        {t('landing.whySkillHub.title', { defaultValue: '为什么选择 SkillHub' })}*/}
+      {/*      </h2>*/}
+      {/*      <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: 'hsl(var(--text-secondary))' }}>*/}
+      {/*        {t('landing.whySkillHub.subtitle', { defaultValue: '专为企业打造的私有化 Agent 技能管理平台' })}*/}
+      {/*      </p>*/}
+      {/*    </div>*/}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature) => (
-              <div
-                key={feature.title}
-                className="bg-white rounded-xl p-8 border shadow-sm transition-shadow hover:shadow-md"
-                style={{ borderColor: 'hsl(var(--border-card))' }}
-              >
-                <div className="feature-icon w-12 h-12 rounded-2xl flex items-center justify-center mb-6 mx-auto bg-brand-gradient">
-                  {feature.icon}
-                </div>
-                <h3 className="text-lg font-semibold text-center mb-3" style={{ color: 'hsl(var(--foreground))' }}>
-                  {feature.title}
-                </h3>
-                <p className="text-sm text-center leading-relaxed" style={{ color: 'hsl(var(--text-secondary))' }}>
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Start */}
-      <div ref={quickStartView.ref} className={`scroll-fade-up${quickStartView.inView ? ' in-view' : ''}`}>
-        <LandingQuickStartSection />
-      </div>
+      {/*    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">*/}
+      {/*      {features.map((feature) => (*/}
+      {/*        <div*/}
+      {/*          key={feature.title}*/}
+      {/*          className="bg-white rounded-xl p-8 border shadow-sm transition-shadow hover:shadow-md"*/}
+      {/*          style={{ borderColor: 'hsl(var(--border-card))' }}*/}
+      {/*        >*/}
+      {/*          <div className="feature-icon w-12 h-12 rounded-2xl flex items-center justify-center mb-6 mx-auto bg-brand-gradient">*/}
+      {/*            {feature.icon}*/}
+      {/*          </div>*/}
+      {/*          <h3 className="text-lg font-semibold text-center mb-3" style={{ color: 'hsl(var(--foreground))' }}>*/}
+      {/*            {feature.title}*/}
+      {/*          </h3>*/}
+      {/*          <p className="text-sm text-center leading-relaxed" style={{ color: 'hsl(var(--text-secondary))' }}>*/}
+      {/*            {feature.description}*/}
+      {/*          </p>*/}
+      {/*        </div>*/}
+      {/*      ))}*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</section>*/}
 
       {/* Popular Downloads Section */}
       <section ref={popularView.ref} className={`relative z-10 w-full py-20 md:py-24 px-6 scroll-fade-up${popularView.inView ? ' in-view' : ''}`} style={{ background: 'var(--bg-page, hsl(var(--background)))' }}>
