@@ -20,8 +20,19 @@ spring:
       client:
         registration:
           github:
-            client-id: ${OAUTH2_GITHUB_CLIENT_ID:local-placeholder}
-            client-secret: ${OAUTH2_GITHUB_CLIENT_SECRET:local-placeholder}
+            client-id: ${OAUTH2_GITHUB_CLIENT_ID:placeholder}
+            client-secret: ${OAUTH2_GITHUB_CLIENT_SECRET:placeholder}
+          gitlab:
+            client-id: ${OAUTH2_GITLAB_CLIENT_ID:placeholder}
+            client-secret: ${OAUTH2_GITLAB_CLIENT_SECRET:placeholder}
+        provider:
+          github:
+            user-info-uri: https://api.github.com/user
+          gitlab:
+            authorization-uri: ${OAUTH2_GITLAB_BASE_URI:https://gitlab.com}/oauth/authorize
+            token-uri: ${OAUTH2_GITLAB_BASE_URI:https://gitlab.com}/oauth/token
+            user-info-uri: ${OAUTH2_GITLAB_BASE_URI:https://gitlab.com}/api/v4/user
+            user-name-attribute: username
 
 skillhub:
   auth:

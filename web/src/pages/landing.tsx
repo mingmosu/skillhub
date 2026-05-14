@@ -92,9 +92,9 @@ export function LandingPage() {
       {/* Hero Section & Quick Start - Side by Side Layout */}
       <div className="relative z-10 flex flex-col lg:flex-row items-stretch justify-center gap-8 lg:gap-16 pt-16 pb-20 px-4 md:pt-24 max-w-7xl mx-auto">
         {/* Hero Content */}
-        <main ref={heroView.ref} className={`flex-1 flex flex-col items-center lg:items-start justify-center text-center lg:text-left scroll-fade-up${heroView.inView ? ' in-view' : ''}`}>
+        <main ref={heroView.ref} className={`flex-1 lg:w-1/2 flex flex-col items-center lg:items-start justify-center text-center lg:text-left scroll-fade-up${heroView.inView ? ' in-view' : ''}`}>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-brand-gradient mb-4">
-            SkillHub
+           Inspur SkillHub
           </h1>
           <h2
             className="text-xl md:text-2xl font-semibold tracking-tight mb-3"
@@ -171,7 +171,7 @@ export function LandingPage() {
         {/* Quick Start */}
         <div
           ref={quickStartView.ref}
-          className={`flex-1 flex flex-col justify-center scroll-fade-up${quickStartView.inView ? ' in-view' : ''}`}
+          className={`flex-1 lg:w-1/2 flex flex-col justify-center scroll-fade-up${quickStartView.inView ? ' in-view' : ''}`}
         >
           <div
             className="rounded-[28px] border bg-white p-4 shadow-[0_24px_60px_-28px_rgba(15,23,42,0.25)]"

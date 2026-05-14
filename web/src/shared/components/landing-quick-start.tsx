@@ -88,7 +88,7 @@ export function LandingQuickStartSection() {
   const currentTab = tabs.find((tab) => tab.id === activeTab) ?? tabs[0]
 
   return (
-    <section className="relative z-10 w-full px-6 py-14 md:py-16" style={{ background: 'var(--bg-page, hsl(var(--background)))' }}>
+    <section className="relative z-10 w-full px-4 py-2">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-7 md:mb-8">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3" style={{ color: 'hsl(var(--foreground))' }}>
