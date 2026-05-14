@@ -85,6 +85,10 @@ public class RouteSecurityPolicyRegistry {
             RouteAuthorizationPolicy.permitAll(HttpMethod.GET, "/api/cli/v1/skills/*/*/versions/*/download"),
             RouteAuthorizationPolicy.authenticated(HttpMethod.DELETE, "/api/cli/v1/skills/*/*"),
             RouteAuthorizationPolicy.authenticated(HttpMethod.POST, "/api/cli/v1/skills/*/publish")
+//            // 放行 OAuth2 回调路径
+//            RouteAuthorizationPolicy.permitAll(null, "/login/oauth2/code/**"),
+//            RouteAuthorizationPolicy.permitAll(null, "/login/oauth2/authorization/**"),
+//            RouteAuthorizationPolicy.permitAll(null, "/oauth2/authorization/**")
     );
 
     private static final List<ApiTokenPolicy> API_TOKEN_POLICIES = List.of(
