@@ -13,10 +13,26 @@ COPY skillhub-notification/pom.xml skillhub-notification/
 COPY skillhub-app/pom.xml skillhub-app/
 COPY mvnw .
 COPY .mvn .mvn
-RUN ./mvnw dependency:go-offline -B
 
 COPY . .
-RUN ./mvnw package -DskipTests -B
+RUN dos2unix mvnw mvnw.cmd .mvn/wrapper/wrapper.jar 2>/dev/null || true
+RUN chmod +x mvnw mvnw.cmd
+
+# Configure Maven to use Aliyun mirror for better network access in China
+RUN mkdir -p /app/.m2 && \
+    echo '<?xml version="1.0" encoding="UTF-8"?>' > /app/.m2/settings.xml && \
+    echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">' >> /app/.m2/settings.xml && \
+    echo '  <mirrors>' >> /app/.m2/settings.xml && \
+    echo '    <mirror>' >> /app/.m2/settings.xml && \
+    echo '      <id>aliyun</id>' >> /app/.m2/settings.xml && \
+    echo '      <mirrorOf>central</mirrorOf>' >> /app/.m2/settings.xml && \
+    echo '      <name>Aliyun Maven Mirror</name>' >> /app/.m2/settings.xml && \
+    echo '      <url>https://maven.aliyun.com/repository/public</url>' >> /app/.m2/settings.xml && \
+    echo '    </mirror>' >> /app/.m2/settings.xml && \
+    echo '  </mirrors>' >> /app/.m2/settings.xml && \
+    echo '</settings>' >> /app/.m2/settings.xml
+
+RUN ./mvnw package -DskipTests -B -s /app/.m2/settings.xml
 
 # ---- Runtime Stage ----
 FROM eclipse-temurin:21-jre-alpine

@@ -6,7 +6,6 @@ import static org.mockito.Mockito.mock;
 import com.iflytek.skillhub.auth.bootstrap.PassiveSessionAuthenticator;
 import com.iflytek.skillhub.auth.direct.DirectAuthProvider;
 import com.iflytek.skillhub.auth.direct.DirectAuthRequest;
-import com.iflytek.skillhub.auth.inspur.InspurPassportProperties;
 import com.iflytek.skillhub.auth.rbac.PlatformPrincipal;
 import com.iflytek.skillhub.config.AuthSessionBootstrapProperties;
 import com.iflytek.skillhub.config.DirectAuthProperties;
@@ -24,8 +23,6 @@ class AuthMethodCatalogTest {
         directAuthProperties.setEnabled(true);
         AuthSessionBootstrapProperties bootstrapProperties = new AuthSessionBootstrapProperties();
         bootstrapProperties.setEnabled(true);
-        InspurPassportProperties inspurProperties = new InspurPassportProperties();
-        inspurProperties.setEnabled(true);
 
         DirectAuthProvider directProvider = new DirectAuthProvider() {
             @Override
@@ -65,7 +62,6 @@ class AuthMethodCatalogTest {
             oauthProperties,
             directAuthProperties,
             bootstrapProperties,
-            inspurProperties,
             List.of(directProvider),
             List.of(bootstrapProvider)
         );
@@ -75,8 +71,7 @@ class AuthMethodCatalogTest {
             .contains(
                 "local-password:Local Account",
                 "direct-private-sso:Enterprise Password",
-                "bootstrap-private-sso:Enterprise SSO",
-                "inspur-passport:Inspur Passport"
+                "bootstrap-private-sso:Enterprise SSO"
             );
     }
 
@@ -87,8 +82,6 @@ class AuthMethodCatalogTest {
         directAuthProperties.setEnabled(true);
         AuthSessionBootstrapProperties bootstrapProperties = new AuthSessionBootstrapProperties();
         bootstrapProperties.setEnabled(true);
-        InspurPassportProperties inspurProperties = new InspurPassportProperties();
-        inspurProperties.setEnabled(true);
 
         DirectAuthProvider directProvider = new DirectAuthProvider() {
             @Override
@@ -118,7 +111,6 @@ class AuthMethodCatalogTest {
             oauthProperties,
             directAuthProperties,
             bootstrapProperties,
-            inspurProperties,
             List.of(directProvider),
             List.of(bootstrapProvider)
         );
@@ -127,8 +119,7 @@ class AuthMethodCatalogTest {
             .extracting(method -> method.id() + ":" + method.displayName())
             .contains(
                 "direct-private-sso:private-sso",
-                "bootstrap-private-sso:private-sso",
-                "inspur-passport:Inspur Passport"
+                "bootstrap-private-sso:private-sso"
             );
     }
 }

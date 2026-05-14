@@ -1,7 +1,7 @@
 import { Link, useNavigate } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 import { normalizeSearchQuery } from '@/shared/lib/search-query'
-import { PackageOpen, Terminal, Shield, Users, GitBranch, Search as SearchIcon, Settings } from 'lucide-react'
+import { Search as SearchIcon } from 'lucide-react'
 import { LandingQuickStartSection } from '@/shared/components/landing-quick-start'
 import { SkillCard } from '@/features/skill/skill-card'
 import { SkeletonList } from '@/shared/components/skeleton-loader'
@@ -34,8 +34,6 @@ export function LandingPage() {
   }
 
   const heroView = useInView()
-  const statsView = useInView()
-  const featuresView = useInView()
   const quickStartView = useInView()
   const popularView = useInView()
   const latestView = useInView()
@@ -47,45 +45,6 @@ export function LandingPage() {
       search: { q: normalized, sort: 'relevance', page: 0, starredOnly: false },
     })
   }
-
-  const features = [
-    {
-      icon: <Shield className="w-6 h-6 text-white" strokeWidth={2} />,
-      title: t('landing.features.secure.title'),
-      description: t('landing.features.secure.description'),
-    },
-    {
-      icon: <Users className="w-6 h-6 text-white" strokeWidth={2} />,
-      title: t('landing.features.community.title'),
-      description: t('landing.features.community.description'),
-    },
-    {
-      icon: <PackageOpen className="w-6 h-6 text-white" strokeWidth={2} />,
-      title: t('landing.features.integration.title'),
-      description: t('landing.features.integration.description'),
-    },
-    {
-      icon: <GitBranch className="w-6 h-6 text-white" strokeWidth={2} />,
-      title: t('landing.features.versionControl.title', { defaultValue: 'Version control' }),
-      description: t('landing.features.versionControl.description', { defaultValue: 'Managed release flows keep skill packages traceable and easier to review.' }),
-    },
-    {
-      icon: <Terminal className="w-6 h-6 text-white" strokeWidth={2} />,
-      title: t('landing.features.cli.title', { defaultValue: 'CLI tooling' }),
-      description: t('landing.features.cli.description', { defaultValue: 'Command-line workflows support publishing, installing, and operating skills quickly.' }),
-    },
-    {
-      icon: <Settings className="w-6 h-6 text-white" strokeWidth={2} />,
-      title: t('landing.features.governance.title', { defaultValue: 'Governance' }),
-      description: t('landing.features.governance.description', { defaultValue: 'Built-in review and permission flows help teams enforce skill quality.' }),
-    },
-  ]
-
-  const stats = [
-    { value: '1000+', label: t('landing.stats.skills', { defaultValue: 'Registry items' }) },
-    { value: '50K+', label: t('landing.stats.downloads', { defaultValue: 'Downloads' }) },
-    { value: '200+', label: t('landing.stats.teams', { defaultValue: 'Teams' }) },
-  ]
 
   return (
     <>

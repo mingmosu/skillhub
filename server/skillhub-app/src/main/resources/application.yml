@@ -68,6 +68,15 @@ spring:
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             client-name: ${OAUTH2_GITLAB_DISPLAY_NAME:GitLab}
+          inspur-passport:
+            client-id: ${INSPUR_PASSPORT_CLIENT_ID:4f3fdfac-e4bf-4895-aa47-7fd1f7d2da6b}
+            client-secret: ${INSPUR_PASSPORT_CLIENT_SECRET:e196508c-a88e-4f94-8b25-b017d5787506}
+            scope:
+              - read_user
+              - email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            client-name: Inspur Passport
+            authorization-grant-type: authorization_code
         provider:
           github:
             user-info-uri: https://api.github.com/user
@@ -76,6 +85,11 @@ spring:
             token-uri: ${OAUTH2_GITLAB_BASE_URI:https://gitlab.com}/oauth/token
             user-info-uri: ${OAUTH2_GITLAB_BASE_URI:https://gitlab.com}/api/v4/user
             user-name-attribute: username
+          inspur-passport:
+            authorization-uri: ${INSPUR_PASSPORT_AUTH_SERVER:https://id-dev.inspuronline.com}/oauth2.0/authorize
+            token-uri: ${INSPUR_PASSPORT_AUTH_SERVER:https://id-dev.inspuronline.com}/oauth2.0/token
+            user-info-uri: ${INSPUR_PASSPORT_AUTH_SERVER:https://id-dev.inspuronline.com}/oauth2.0/user-info
+            user-name-attribute: phone
   servlet:
     multipart:
       max-file-size: 100MB
@@ -104,13 +118,13 @@ skillhub:
       code-expiry: ${SKILLHUB_AUTH_PASSWORD_RESET_CODE_EXPIRY:PT10M}
       email-from-address: ${SKILLHUB_AUTH_PASSWORD_RESET_FROM_ADDRESS:noreply@skillhub.local}
       email-from-name: ${SKILLHUB_AUTH_PASSWORD_RESET_FROM_NAME:SkillHub}
-    inspur-passport:
-      enabled: ${INSPUR_PASSPORT_ENABLED:true}
-      auth-server: ${INSPUR_PASSPORT_AUTH_SERVER:https://id-dev.inspuronline.com}
-      client-id: ${INSPUR_PASSPORT_CLIENT_ID:4f3fdfac-e4bf-4895-aa47-7fd1f7d2da6b}
-      client-secret: ${INSPUR_PASSPORT_CLIENT_SECRET:e196508c-a88e-4f94-8b25-b017d5787506}
-      redirect-uri: ${INSPUR_PASSPORT_REDIRECT_URI:http://localhost:8080/ssologin}
-      state: ssotest
+#    inspur-passport:
+#      enabled: ${INSPUR_PASSPORT_ENABLED:true}
+#      auth-server: ${INSPUR_PASSPORT_AUTH_SERVER:https://id-dev.inspuronline.com}
+#      client-id: ${INSPUR_PASSPORT_CLIENT_ID:4f3fdfac-e4bf-4895-aa47-7fd1f7d2da6b}
+#      client-secret: ${INSPUR_PASSPORT_CLIENT_SECRET:e196508c-a88e-4f94-8b25-b017d5787506}
+#      redirect-uri: ${INSPUR_PASSPORT_REDIRECT_URI:http://localhost:8080/ssologin}
+#      state: ssotest
   public:
     base-url: ${SKILLHUB_PUBLIC_BASE_URL:}
   access-policy:
